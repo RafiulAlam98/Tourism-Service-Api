@@ -18,11 +18,29 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const run = async() =>{
      try{
-          await client.connect;
+          await client.connect();
           console.log('database connected')
+          const database = client.db('tour-services')
+          const offerCollection = database.collection('offers') 
+          
+
+          app.get('/offers', async(req,res)=>{
+               const query = offerCollection.find({})
+               const result = await query.toArray()
+               res.json(result)
+          })
+
+          app.post('/users', async(req,res)=>{
+               const newUser = req.body;
+               console.log(newUser)
+               const result = 
+               console.log('hit the api')
+               res.send('hit the api')
+          })
+
      }
      finally{
-
+           // await client.close();
      }
 }
 run().catch(console.dir)
