@@ -22,7 +22,7 @@ const run = async() =>{
           console.log('database connected')
           const database = client.db('tour-services')
           const offerCollection = database.collection('offers') 
-          
+          const userCollection = database.collection('users')
 
           app.get('/offers', async(req,res)=>{
                const query = offerCollection.find({})
@@ -33,9 +33,9 @@ const run = async() =>{
           app.post('/users', async(req,res)=>{
                const newUser = req.body;
                console.log(newUser)
-               const result = 
+               const result = await userCollection.insertOne(newUser)
                console.log('hit the api')
-               res.send('hit the api')
+               res.json(result)
           })
 
      }
