@@ -46,6 +46,23 @@ const run = async() =>{
                res.json(result)
           })
 
+          // Update pending request
+          app.put('/users/:id', async(req,res)=>{
+               const id = req.params.id
+               const updatedUser = req.body
+               console.log(updatedUser.status)
+               const filter = {_id:ObjectId(id)}
+               const option = {upsert : true}
+               const updateDoc = {
+                    $set: {
+                      status: `approved `
+                    },
+                  };
+               const result = await userCollection.updateOne(filter,updateDoc,option)
+
+               res.json(result)
+          })
+
 
           // delete 
           app.delete('/users/:id',async(req,res)=>{
